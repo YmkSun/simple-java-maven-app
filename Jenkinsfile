@@ -1,9 +1,10 @@
 node {
   stage ('Checkout') {
-  
+	git url: 'https://github.com/YmkSun/simple-java-maven-app.git'
   	stage 'Build'
-	sh 'make all'
+		sh 'mvn --version'
+		sh 'mvn clean verify'
 	stage 'Test'
-  	sh 'make test'
+		sh 'echo "Hello World"'
   }
 }
