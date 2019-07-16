@@ -1,9 +1,15 @@
-node {
-  stage ('Checkout') {
-	git url: 'https://github.com/YmkSun/simple-java-maven-app.git'
-  	stage 'Build'
-		sh 'echo "Build"'
-	stage 'Test'
-		sh 'echo "Hello World"'
-  }
+pipeline {
+    agent {
+        docker {
+            image 'maven:3-alpine' 
+            args '-v /root/.m2:/root/.m2' 
+        }
+    }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
+            }
+        }
+    }
 }
